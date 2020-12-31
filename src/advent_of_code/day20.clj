@@ -2,126 +2,28 @@
   (:require [clojure.string :as string]
             [clojure.set :as set]))
 
-(def example "Tile 2311:
-..##.#..#.
-##..#.....
-#...##..#.
-####.#...#
-##.##.###.
-##...#.###
-.#.#.#..##
-..#....#..
-###...#.#.
-..###..###
-
-Tile 1951:
-#.##...##.
-#.####...#
-.....#..##
-#...######
-.##.#....#
-.###.#####
-###.##.##.
-.###....#.
-..#.#..#.#
-#...##.#..
-
-Tile 1171:
-####...##.
-#..##.#..#
-##.#..#.#.
-.###.####.
-..###.####
-.##....##.
-.#...####.
-#.##.####.
-####..#...
-.....##...
-
-Tile 1427:
-###.##.#..
-.#..#.##..
-.#.##.#..#
-#.#.#.##.#
-....#...##
-...##..##.
-...#.#####
-.#.####.#.
-..#..###.#
-..##.#..#.
-
-Tile 1489:
-##.#.#....
-..##...#..
-.##..##...
-..#...#...
-#####...#.
-#..#.#.#.#
-...#.#.#..
-##.#...##.
-..##.##.##
-###.##.#..
-
-Tile 2473:
-#....####.
-#..#.##...
-#.##..#...
-######.#.#
-.#...#.#.#
-.#########
-.###.#..#.
-########.#
-##...##.#.
-..###.#.#.
-
-Tile 2971:
-..#.#....#
-#...###...
-#.#.###...
-##.##..#..
-.#####..##
-.#..####.#
-#..#.#..#.
-..####.###
-..#.#.###.
-...#.#.#.#
-
-Tile 2729:
-...#.#.#.#
-####.#....
-..#.#.....
-....#..#.#
-.##..##.#.
-.#.####...
-####.#.#..
-##.####...
-##..#.##..
-#.##...##.
-
-Tile 3079:
-#.#.#####.
-.#..######
-..#.......
-######....
-####.#..#.
-.#...#.##.
-#.#####.##
-..#.###...
-..#.......
-..#.###...")
-
 (def opposite {:top :bottom
                :bottom :top
                :left :right
                :right :left})
+
+(defn rotate-body [body]
+  (reduce (partial map conj)
+          (repeat (count (first body)) (list))
+          body))
 
 (defn rotate [{:keys [top right bottom left] :as tile}]
   (-> tile
       (assoc :top (reverse left))
       (assoc :right top)
       (assoc :bottom (reverse right))
-      (assoc :left bottom)))
+      (assoc :left bottom)
+      (update :body rotate-body)
+      (update :rotation (comp #(mod % 4) inc))))
 
+
+(defn flip-body [body]
+  (map reverse body))
 
 (defn parse-tile [tile]
   (let [[title & rows] (string/split-lines tile)
@@ -129,20 +31,25 @@ Tile 3079:
     [id {:top (apply list (first rows))
          :right (map last rows)
          :bottom (apply list (last rows))
-         :left (map first rows)}]))
+         :left (map first rows)
+         :body (map (comp rest butlast) (rest (butlast rows)))
+         :rotation 0
+         :flips 0}]))
 
 (defn get-rotations [tile]
   (take 4 (iterate rotate tile)))
 
-(defn get-flips [{:keys [top right bottom left] :as tile}]
-  (get-rotations (-> tile ;;vertical flip
-                     (assoc :top (reverse top))
-                     (assoc :right left)
-                     (assoc :bottom (reverse bottom))
-                     (assoc :left right))))
+(defn flip [{:keys [top right bottom left] :as tile}]
+  (-> tile ;;vertical flips
+      (assoc :top (reverse top))
+      (assoc :right left)
+      (assoc :bottom (reverse bottom))
+      (assoc :left right)
+      (update :body flip-body)
+      (update :flips (comp #(mod % 2) inc))))
 
 (defn try-new-tile [[jixaw solved new-neighbors missing] [uid utile]]
-  (->> (for [transformed (concat (get-flips utile) (get-rotations utile))
+  (->> (for [transformed (mapcat (juxt identity flip) (get-rotations utile))
              side '(:top :right :bottom :left)
              jj jixaw
              :let [jtile (val jj)
@@ -179,23 +86,76 @@ Tile 3079:
         jixaw
         (recur new-j (set/union solved-keys (set (keys jixaw))) new-unsolved)))))
 
+(defn create-image [puzzle]
+  (let [topleft (first (filter #(= #{:bottom :right}
+                                   (set (keys (:neighbors (val %)))))
+                               puzzle))
+        topline (take-while some? (iterate (comp (partial get puzzle) :right :neighbors) (second topleft)))]
+    (loop [image [topline]]
+      (if-let [nextline (->> image
+                             last
+                             (keep (comp (partial get puzzle) :bottom :neighbors))
+                             seq)]
+        (recur (concat image [nextline]))
+        (->> image
+             (map (partial map :body))
+             (map (partial apply map concat))
+             (apply concat))))
+    ))
+
+(def monster
+  {0 {18 \O}
+   1 {0 \O 5 \O 6 \O 11 \O 12 \O 17 \O 18 \O 19 \O}
+   2 {1 \O 4 \O 7 \O 10 \O 13 \O 16 \O}})
+
+(defn mark-monster [x y image]
+  (if (every? (fn [[kline vline]]
+                (every? (fn [[k _]]
+                          (let [c (nth (nth image (+ y kline) ) (+ x k))]
+                            (or (= \# c)
+                                (= \O c))))
+                        vline))
+              monster)
+    (map-indexed (fn [iy line]
+           (map-indexed (fn [ix c]
+                          (if-let [m (get-in monster [(- iy y) (- ix x)])]
+                            m
+                            c))
+                line))
+         image)
+    image))
+
+(defn find-monsters [image]
+  (let [xrange (range (- (count (first image)) 19))
+        yrange (range (- (count image) 3))]
+    (reduce (fn [temp-imagey y]
+              (reduce (fn [temp-imagex x]
+                        (mark-monster x y temp-imagex))
+                      temp-imagey
+                      xrange))
+            image
+            yrange)))
+
+(def puzzle (->>
+             "resources/day20"
+             slurp
+             ;; example
+             (#(string/split % #"\n\n"))
+             (map parse-tile)
+             solve-puzzle))
+
 (comment
   (->>
-   "resources/day20"
-   slurp
-   ;; example
-   (#(string/split % #"\n\n"))
-   (map parse-tile)
-   reverse
-   solve-puzzle
+   (reduce (fn [im f]
+             (find-monsters (f im)))
+           (find-monsters (create-image puzzle))
+           (concat (repeat 8 rotate-body)
+                   [flip-body]
+                   (repeat 5 rotate-body)))
+   (map (comp count (partial filter (partial = \#))))
+   (apply +))
+  (->> ;;part 1
+   puzzle
    (filter #(= 2 (count (:neighbors (val %)))))
    keys
-   (apply *)
-   )
-  (let [tile {:top {:edge '(1 2 3)}
-              :right {:edge '(3 6 9)}
-              :bottom {:edge '(7 8 9)}
-              :left {:edge '(1 4 7)}}]
-    (= tile
-       (last (take 3 (iterate rotate tile)))))
-  )
+   (apply *)))
