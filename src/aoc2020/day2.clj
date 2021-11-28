@@ -1,4 +1,4 @@
-(ns advent-of-code.day2
+(ns aoc2020.day2
   (:require [clojure.string :refer [split]]))
 
 ;; 15-19 k: kkkkkkkkkkkkzkkkkkkk

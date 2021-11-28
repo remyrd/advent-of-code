@@ -1,4 +1,4 @@
-(ns advent-of-code.day11
+(ns aoc2020.day11
   (:require [clojure.string :as string]))
 
 (defn walk-direction [x y dirx diry maxx maxy world]

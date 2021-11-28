@@ -1,4 +1,4 @@
-(ns advent-of-code.day4
+(ns aoc2020.day4
   (:require [clojure.string :as string]
             [clojure.set :as set]))
 

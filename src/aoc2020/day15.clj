@@ -1,4 +1,4 @@
-(ns advent-of-code.day15)
+(ns aoc2020.day15)
 
 (loop [nums->turns {0 1
                     14 2

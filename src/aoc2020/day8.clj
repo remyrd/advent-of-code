@@ -1,4 +1,4 @@
-(ns advent-of-code.day8
+(ns aoc2020.day8
   (:require [clojure.string :as string]))
 
 (defn swap-nop-jmp [ins]

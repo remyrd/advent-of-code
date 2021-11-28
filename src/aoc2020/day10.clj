@@ -1,4 +1,4 @@
-(ns advent-of-code.day10
+(ns aoc2020.day10
   (:require [clojure.string :as string]))
 
 (defn diffs [coll]

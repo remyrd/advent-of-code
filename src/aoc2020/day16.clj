@@ -1,4 +1,4 @@
-(ns advent-of-code.day16
+(ns aoc2020.day16
   (:require [clojure.string :as string]
             [clojure.set :as set]))
 
@@ -53,7 +53,6 @@
          (map (partial nth mine))
          (apply *)
          )))
-(comment
   (->>
    "resources/day16"
    slurp

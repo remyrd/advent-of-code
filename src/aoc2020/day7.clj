@@ -1,4 +1,4 @@
-(ns advent-of-code.day7
+(ns aoc2020.day7
   (:require [clojure.string :as string]))
 
 (defn keyword-color [[c1 c2]]

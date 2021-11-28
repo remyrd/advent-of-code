@@ -1,4 +1,4 @@
-(ns advent-of-code.day5
+(ns aoc2020.day5
   (:require [clojure.string :as string]))
 
 (defn c->int [i c]

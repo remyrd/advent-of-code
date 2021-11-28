@@ -1,4 +1,4 @@
-(ns advent-of-code.day25
+(ns aoc2020.day25
   (:require [clojure.string :as string]))
 
 (defn calc [subject]

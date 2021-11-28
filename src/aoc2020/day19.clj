@@ -1,4 +1,4 @@
-(ns advent-of-code.day19
+(ns aoc2020.day19
   (:require [clojure.string :as string]))
 
 (defn super-partition [v]

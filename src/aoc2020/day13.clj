@@ -1,4 +1,4 @@
-(ns advent-of-code.day13
+(ns aoc2020.day13
   (:require [clojure.string :as string]))
 
 (defn earliest-bus [[t-s bus-s]]

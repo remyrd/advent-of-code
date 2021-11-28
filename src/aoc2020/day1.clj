@@ -1,4 +1,4 @@
-(ns advent-of-code.day1
+(ns aoc2020.day1
   (:require [clojure.string :refer [split]]))
 
 (def input (slurp "resources/day1"))

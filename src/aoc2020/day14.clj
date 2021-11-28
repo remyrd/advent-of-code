@@ -1,4 +1,4 @@
-(ns advent-of-code.day14
+(ns aoc2020.day14
   (:require [clojure.string :as string]))
 
 (defn exp [b e]

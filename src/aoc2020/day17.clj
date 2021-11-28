@@ -1,4 +1,4 @@
-(ns advent-of-code.day17
+(ns aoc2020.day17
   (:require [clojure.string :as string]))
 
 (defn get-ranges [m]

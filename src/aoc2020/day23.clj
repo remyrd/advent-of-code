@@ -1,4 +1,4 @@
-(ns advent-of-code.day23)
+(ns aoc2020.day23)
 
 (def input [4 7 6 1 3 8 2 5 9])
 

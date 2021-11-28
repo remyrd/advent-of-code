@@ -1,4 +1,4 @@
-(ns advent-of-code.day24
+(ns aoc2020.day24
   (:require [clojure.string :as string]
             [clojure.set :refer [intersection]]))
 

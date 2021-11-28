@@ -1,4 +1,4 @@
-(ns advent-of-code.day12
+(ns aoc2020.day12
   (:require [clojure.string :as string]))
 
 (def angle->nwse {0 \E, 90 \N, 180 \W, 270 \S})

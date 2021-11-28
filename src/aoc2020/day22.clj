@@ -1,4 +1,4 @@
-(ns advent-of-code.day22
+(ns aoc2020.day22
   (:require [clojure.string :as string]))
 
 (defn score [p1 p2]

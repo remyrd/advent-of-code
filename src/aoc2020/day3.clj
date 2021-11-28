@@ -1,4 +1,4 @@
-(ns advent-of-code.day3
+(ns aoc2020.day3
   (:require [clojure.java.io :as io]))
 
 (defn hit-tree [[total pos skip xstep ystep] line]

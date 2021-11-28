@@ -1,4 +1,4 @@
-(ns advent-of-code.day9
+(ns aoc2020.day9
   (:require [clojure.string :as string]))
 
 (defn find-sum [preamble target]

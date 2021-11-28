@@ -1,4 +1,4 @@
-(ns advent-of-code.day18
+(ns aoc2020.day18
   (:require [clojure.string :as string]))
 
 
@@ -48,12 +48,11 @@
        resolve-internal
        ))
 
-(comment 
+
+(comment
   (->>
-   "resources/day18"
+   "resources/2020/day18"
    slurp
-   ;; example
    string/split-lines
    (map solve-line)
-   (apply +)
-   ))
+   (apply +)))
