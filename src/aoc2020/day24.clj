@@ -32,7 +32,7 @@
     tile))
 
 (comment
-  (->> (slurp "resources/day24") ;; part 2
+  (->> (slurp "resources/2020/day24") ;; part 2
        init-flip-tiles
        (filter #(= 1 (mod (val %) 2)))
        (map first)
@@ -41,7 +41,7 @@
        (take 101)
        last
        count)
-  (->> (slurp "resources/day24") ;; part 1
+  (->> (slurp "resources/2020/day24") ;; part 1
        init-flip-tiles
        vals
        (group-by #(mod % 2))

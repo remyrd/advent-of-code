@@ -34,4 +34,4 @@
 
 (comment
   (valid2?  (parseline "15-19 k: kkkkkkkkkkkkkkkzkkkkkkk"))
-  (day2 "resources/day2"))
+  (day2 "resources/2020/day2"))

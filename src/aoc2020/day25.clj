@@ -11,7 +11,7 @@
   (last (take (inc loops) (calc subject))))
 
 (comment
-  (->> (slurp "resources/day25")
+  (->> (slurp "resources/2020/day25")
        string/split-lines
        (map #(Integer/parseInt %))
        (apply #(get-secret (get-loops % 7) %2))))

@@ -63,4 +63,4 @@
      count))
 
 
-(comment (day4 "resources/day4"))
+(comment (day4 "resources/2020/day4"))

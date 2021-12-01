@@ -137,7 +137,7 @@
             yrange)))
 
 (def puzzle (->>
-             "resources/day20"
+             "resources/2020/day20"
              slurp
              ;; example
              (#(string/split % #"\n\n"))

@@ -22,8 +22,8 @@
        first)))
 
 
-(comment (ex1 "resources/day3" [3 1])
+(comment (ex1 "resources/2020/day3" [3 1])
          (->> [[1 1] [3 1] [5 1] [7 1] [1 2]]
-            (map (partial ex1 "resources/day3"))
+            (map (partial ex1 "resources/2020/day3"))
             (apply *))
          (hit-tree [0 9] "######...."))

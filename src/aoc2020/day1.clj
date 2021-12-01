@@ -1,7 +1,7 @@
 (ns aoc2020.day1
   (:require [clojure.string :refer [split]]))
 
-(def input (slurp "resources/day1"))
+(def input (slurp "resources/2020/day1"))
 
 (defn find-sum [[cola colb]]
   (mapcat (fn [a] (keep #(when (= 2020 (+ a %)) [a %]) colb)) cola))
@@ -66,6 +66,6 @@
          flatten
          (keep #(when (seq %) (apply * %))))))
 
-(comment (solve1 "resources/day1")
-         (solve2 "resources/day1")
+(comment (solve1 "resources/2020/day1")
+         (solve2 "resources/2020/day1")
          (*  680 857 483))

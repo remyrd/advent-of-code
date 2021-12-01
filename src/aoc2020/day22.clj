@@ -59,7 +59,7 @@
 
 (comment
   (->>
-   (slurp "resources/day22")
+   (slurp "resources/2020/day22")
    (#(string/split % #"\n\n"))
    (map string/split-lines)
    (map rest)

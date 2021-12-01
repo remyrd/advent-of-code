@@ -51,7 +51,7 @@ sqjhc mxmxvkd sbzzf (contains fish)")
 
 (comment 
   (->>
-   (slurp "resources/day21")
+   (slurp "resources/2020/day21")
    ;; example
    string/split-lines
    (map (partial re-seq #"\w+"))

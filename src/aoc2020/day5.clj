@@ -22,7 +22,7 @@
                    (some #(= seat-1 %) seats))]
     seat))
 
-(->> "resources/day5"
+(->> "resources/2020/day5"
    slurp
    (string/split-lines)
    (map seat-id)

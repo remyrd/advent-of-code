@@ -33,7 +33,7 @@
                     (+ y (* mag (nwse->y dir)))
                     a]))
 
-(comment  (->> "resources/day12"
+(comment  (->> "resources/2020/day12"
              slurp
              string/split-lines
              (map (partial re-seq #"([A-Z])(\d+)"))

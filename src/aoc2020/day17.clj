@@ -64,7 +64,7 @@
 
 (comment
   (->>
-   "resources/day17"
+   "resources/2020/day17"
    slurp
    ;; example
    string/split-lines

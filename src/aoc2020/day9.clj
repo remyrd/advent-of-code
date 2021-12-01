@@ -32,7 +32,7 @@
         :let [b (find-subset (drop a numbers) target)]]
     b))
 
-(comment  (->> "resources/day9"
+(comment  (->> "resources/2020/day9"
              slurp
              string/split-lines
              (map #(Long/parseLong %))

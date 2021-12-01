@@ -54,7 +54,7 @@
          (apply *)
          )))
   (->>
-   "resources/day16"
+   "resources/2020/day16"
    slurp
    (#(string/split % #"\n\n"))
    (map string/split-lines)

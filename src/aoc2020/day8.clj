@@ -46,7 +46,7 @@
                       "+" (Integer/parseInt (nth % 2))
                       "-" (- 0 (Integer/parseInt (nth % 2))))))))
 
-(comment  (->> "resources/day8"
+(comment  (->> "resources/2020/day8"
              slurp
              string/split-lines
              (map parse-line)

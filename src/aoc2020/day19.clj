@@ -39,7 +39,7 @@
 
 (comment
   (->>
-   "resources/day19"
+   "resources/2020/day19"
    slurp
    (#(string/split % #"\n\n"))
    (apply solve)

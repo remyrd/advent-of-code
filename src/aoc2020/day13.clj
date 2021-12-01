@@ -39,12 +39,12 @@
     (reduce next-pos [0 1 (first (first bar))] (rest bar))))
 
 
-(comment  (->> "resources/day13"
+(comment  (->> "resources/2020/day13"
              slurp
              string/split-lines
              earliest-bus)
           (->>
-           (slurp "resources/day13")
+           (slurp "resources/2020/day13")
            string/split-lines
            second
            (#(string/split % #","))

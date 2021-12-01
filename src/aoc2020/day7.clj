@@ -22,7 +22,7 @@
     (reduce #(+ % (* (val %2) (count-bags (key %2) m))) 1 colors)
     1))
 
- (->> "resources/day7"
+ (->> "resources/2020/day7"
     slurp
     string/split-lines
     (remove #(string/ends-with? % "contain no other bags."))

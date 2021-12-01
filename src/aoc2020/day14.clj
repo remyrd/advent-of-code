@@ -74,7 +74,7 @@
   (unfloat (list  0 0 \X 1))
   ;; part 1
   (->>
-   (slurp "resources/day14")
+   (slurp "resources/2020/day14")
    string/split-lines
    (reduce process-line {:mask nil :mem nil})
    (#(get % :mem))

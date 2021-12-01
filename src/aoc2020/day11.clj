@@ -60,7 +60,7 @@
            (apply +))
         (recur new-world)))))
 
-(comment  (->> "resources/day11"
+(comment  (->> "resources/2020/day11"
              slurp
              string/split-lines
              play-game))
