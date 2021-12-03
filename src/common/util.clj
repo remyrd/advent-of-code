@@ -5,3 +5,6 @@
   (->> file
        slurp
        str/split-lines))
+
+(defn parse-example [x]
+  (str/split-lines x))
