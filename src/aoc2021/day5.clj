@@ -22,7 +22,7 @@
     (< point1 point2) (range point1 (inc point2))
     (> point1 point2) (reverse (range point2 (inc point1)))))
 
-;; matrix represented as a tree of y->x
+;; matrix represented as a tree of x->y
 (defn build-matrix [lines]
   (reduce (fn [t [x1 y1 x2 y2]]
             (add-points t (map vector
